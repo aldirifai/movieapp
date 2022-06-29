@@ -25,8 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'endpoint' => 'required|string|max:255|in:latest,/movie/latest,/movie/now_playing,/movie/popular,/movie/top_rated,/movie/upcoming',
+            'endpoint' => 'required|string|max:255|in:/movie/now_playing,/movie/popular,/movie/top_rated,/movie/upcoming',
         ];
     }
 }

@@ -46,6 +46,12 @@ DB_USERNAME=username
 DB_PASSWORD=password
 ```
 
+### Tambahkan API Key di File .env
+
+```bash
+API_KEY=
+```
+
 ### Migrasi Database
 
 Migrasi semua table dan data yang sudah disediakan
@@ -54,7 +60,7 @@ Migrasi semua table dan data yang sudah disediakan
 php artisan migrate:fresh --seed
 ```
 
-Jika proses migrasi gagal, silakan import manual file database dengan nama task2.sql yang berada di folder db
+Jika proses migrasi gagal, silakan import manual file database dengan nama moviapp.sql yang berada di folder db
 
 ### Generate Key Aplikasi
 

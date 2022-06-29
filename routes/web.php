@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return to_route('login');
+    return view('homepage');
 });
 
 Auth::routes();
@@ -27,4 +27,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('kategori', CategoryController::class)->only(['index', 'store', 'destroy', 'update']);
 });
 
-Route::get('kategori/{slug}', [App\Http\Controllers\CategoryController::class, 'show'])->name('kategori.show');
+Route::get('kategori/{slug}', [CategoryController::class, 'show'])->name('kategori.show');
+
+Route::get('detail/{slug}', [App\Http\Controllers\DetailController::class, 'show'])->name('detail.show');

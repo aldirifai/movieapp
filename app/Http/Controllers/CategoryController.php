@@ -17,12 +17,6 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'endpoint' => 'required|string|max:255',
-        ]);
-
         Category::create($request->all() + ['slug' => str_slug($request->name)]);
 
         Alert::success('Berhasil', 'Kategori berhasil ditambahkan');
@@ -30,13 +24,15 @@ class CategoryController extends Controller
         return to_route('kategori.index');
     }
 
-    public function show(Category $category)
+    public function show($slug)
     {
+        $category = Category::where('slug', $slug)->firstOrFail();
         return view('kategori-show', compact('category'));
     }
 
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, $id)
     {
+        $category = Category::findOrFail($id);
         $category->update($request->all());
 
         Alert::success('Berhasil', 'Kategori berhasil diperbarui');
@@ -44,8 +40,9 @@ class CategoryController extends Controller
         return to_route('kategori.index');
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category = Category::findOrFail($id);
         $category->delete();
 
         Alert::success('Berhasil', 'Kategori berhasil dihapus');

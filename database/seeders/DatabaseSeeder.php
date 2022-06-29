@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Customer;
-use App\Models\Product;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +23,29 @@ class DatabaseSeeder extends Seeder
             'remember_token' => str()->random(10),
         ]);
 
-        Customer::factory(10)->create();
-        Product::factory(10)->create();
+        $kategori = [
+            [
+                'name' => 'Now Playing',
+                'slug' => 'now-playing',
+                'endpoint' => '/movie/now_playing',
+            ],
+            [
+                'name' => 'Popular',
+                'slug' => 'popular',
+                'endpoint' => '/movie/popular',
+            ],
+            [
+                'name' => 'Top Rated',
+                'slug' => 'top-rated',
+                'endpoint' => '/movie/top_rated',
+            ],
+            [
+                'name' => 'Upcoming',
+                'slug' => 'upcoming',
+                'endpoint' => '/movie/upcoming',
+            ],
+        ];
+
+        Category::insert($kategori);
     }
 }

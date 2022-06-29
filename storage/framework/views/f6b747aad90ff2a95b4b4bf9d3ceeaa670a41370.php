@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -29,20 +27,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
-                                        <td>{{ $category->endpoint }}</td>
+                                        <td><?php echo e($category->name); ?></td>
+                                        <td><?php echo e($category->slug); ?></td>
+                                        <td><?php echo e($category->endpoint); ?></td>
                                         <td class="text-center">
                                             <button class="btn btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#editData" onclick="ubahData(`{{ $category }}`)">
+                                                data-bs-target="#editData" onclick="ubahData(`<?php echo e($category); ?>`)">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <form class="d-inline" action="{{ route('kategori.destroy', $category->id) }}"
+                                            <form class="d-inline" action="<?php echo e(route('kategori.destroy', $category->id)); ?>"
                                                 method="POST">
-                                                @csrf
-                                                @method('DELETE')
+                                                <?php echo csrf_field(); ?>
+                                                <?php echo method_field('DELETE'); ?>
                                                 <button class="btn btn-danger" type="button"
                                                     onclick="fungsiHapus(this.form)">
                                                     <i class="fas fa-trash"></i>
@@ -50,7 +48,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -66,8 +64,8 @@
                     <h5 class="modal-title" id="tambahDataLabel">Tambah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('kategori.store') }}" method="POST">
-                    @csrf
+                <form action="<?php echo e(route('kategori.store')); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
@@ -96,8 +94,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="POST">
-                    @csrf
-                    @method('PUT')
+                    <?php echo csrf_field(); ?>
+                    <?php echo method_field('PUT'); ?>
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
@@ -117,9 +115,9 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
     <script>
         $(function() {
             $('#data').DataTable({
@@ -132,9 +130,11 @@
 
         function ubahData(data) {
             var data = JSON.parse(data);
-            $('#editData form').attr('action', `{{ url('/admin/kategori') }}/${data.id}`);
+            $('#editData form').attr('action', `<?php echo e(url('/admin/kategori')); ?>/${data.id}`);
             $('#editData form input[name="name"]').val(data.name);
             $('#editData form input[name="endpoint"]').val(data.endpoint);
         }
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/dev/Private/movieapp/resources/views/kategori.blade.php ENDPATH**/ ?>
