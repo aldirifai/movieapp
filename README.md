@@ -48,8 +48,10 @@ DB_PASSWORD=password
 
 ### Tambahkan API Key di File .env
 
+Isikan API Key (v3 auth) dari website themoviedb.org ke file .env
+
 ```bash
-API_KEY=
+API_KEY=isikan_api_key_disini
 ```
 
 ### Migrasi Database
