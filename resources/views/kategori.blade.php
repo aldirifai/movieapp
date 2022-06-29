@@ -8,7 +8,7 @@
                     <div class="card-header">
                         <div class="row m-1">
                             <div class="col-md-6">
-                                <h3>Data Produk</h3>
+                                <h3>Data Kategori</h3>
                             </div>
                             <div class="col-md-6">
                                 <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#tambahData">
@@ -23,7 +23,8 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>Nama</th>
-                                    <th>Harga</th>
+                                    <th>Slug</th>
+                                    <th>Endpoint</th>
                                     <th width="10%">Aksi</th>
                                 </tr>
                             </thead>
@@ -31,7 +32,8 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <td>{{ $product->name }}</td>
-                                        <td>{{ $product->rupiah() }}</td>
+                                        <td>{{ $product->slug }}</td>
+                                        <td>{{ $product->endpoint }}</td>
                                         <td class="text-center">
                                             <button class="btn btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#editData" onclick="ubahData(`{{ $product }}`)">
@@ -72,8 +74,8 @@
                             <input type="text" class="form-control" id="name" name="name" placeholder="Nama">
                         </div>
                         <div class="mb-3">
-                            <label for="price" class="form-label">Harga</label>
-                            <input type="number" class="form-control" id="price" name="price" placeholder="10000">
+                            <label for="endpoint" class="form-label">Endpoint</label>
+                            <input type="text" class="form-control" id="endpoint" name="endpoint" placeholder="10000">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -97,12 +99,12 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="name_edit" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="name_edit" name="name" placeholder="Nama">
+                            <label for="name" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama">
                         </div>
                         <div class="mb-3">
-                            <label for="price_edit" class="form-label">Harga</label>
-                            <input type="number" class="form-control" id="price_edit" name="price" placeholder="10000">
+                            <label for="endpoint" class="form-label">Endpoint</label>
+                            <input type="text" class="form-control" id="endpoint" name="endpoint" placeholder="10000">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -128,9 +130,9 @@
 
         function ubahData(data) {
             var data = JSON.parse(data);
-            $('#editData form').attr('action', `{{ url('/product') }}/${data.id}`);
+            $('#editData form').attr('action', `{{ url('/kategori') }}/${data.id}`);
             $('#editData form input[name="name"]').val(data.name);
-            $('#editData form input[name="price"]').val(data.price);
+            $('#editData form input[name="endpoint"]').val(data.endpoint);
         }
     </script>
 @endsection

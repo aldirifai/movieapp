@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::resource('kategori', CategoryController::class)->only(['index', 'store', 'destroy', 'update']);
 });
+
+Route::get('kategori/{slug}', [App\Http\Controllers\CategoryController::class, 'show'])->name('kategori.show');
